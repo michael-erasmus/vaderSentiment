@@ -3,6 +3,9 @@
 
 VADER (Valence Aware Dictionary and sEntiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is _specifically attuned to sentiments expressed in social media_. It is fully open-sourced under the [MIT License](http://choosealicense.com/) (we sincerely appreciate all attributions and readily accept most contributions, but please don't hold us liable).
 
+
+**This fork contains fixes to make VADER work in Python3**
+
 =======
 
 ###Introduction
@@ -12,13 +15,13 @@ This README file describes the dataset of the paper:
   **VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text** <br />
   (by C.J. Hutto and Eric Gilbert) <br />
   Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014. <br />
- 
+
 For questions, please contact: <br />
 
 C.J. Hutto <br />
 Georgia Institute of Technology, Atlanta, GA 30032  <br />
 cjhutto [at] gatech [dot] edu <br />
-  
+
 =======
 
 ###Citation Information
@@ -32,7 +35,7 @@ If you use either the dataset or any of the VADER sentiment analysis tools (VADE
 ###Installation
 
 There are a couple of ways to install and use VADER sentiment:  <br />
-- The simplest is to use the command line to do an installtion from PyPI using pip, e.g., 
+- The simplest is to use the command line to do an installtion from PyPI using pip, e.g.,
 ```
 > pip install vaderSentiment
 ```
@@ -50,53 +53,53 @@ The compressed .tar.gz package includes **PRIMARY RESOURCES** (items 1-3) as wel
 
 2. vader_sentiment_lexicon.txt <br />
        Empirically validated by multiple independent human judges, VADER incorporates a "gold-standard" sentiment lexicon that is especially attuned to microblog-like contexts.  <br />
-    The VADER sentiment lexicon is sensitive both the **polarity** and the **intensity** of sentiments 
-	expressed in social media contexts, and is also generally applicable to sentiment analysis 
+    The VADER sentiment lexicon is sensitive both the **polarity** and the **intensity** of sentiments
+	expressed in social media contexts, and is also generally applicable to sentiment analysis
 	in other domains. <br />
-	   Manually creating (much less, validating) a comprehensive sentiment lexicon is 
-	a labor intensive and sometimes error prone process, so it is no wonder that many 
-	opinion mining researchers and practitioners rely so heavily on existing lexicons 
+	   Manually creating (much less, validating) a comprehensive sentiment lexicon is
+	a labor intensive and sometimes error prone process, so it is no wonder that many
+	opinion mining researchers and practitioners rely so heavily on existing lexicons
 	as primary resources. We are pleased to offer ours as a new resource. <br />
-	   We begin by constructing a list inspired by examining existing well-established 
-	sentiment word-banks (LIWC, ANEW, and GI). To this, we next incorporate numerous 
-	lexical features common to sentiment expression in microblogs, including 
-	 - a full list of Western-style emoticons, for example, :-) denotes a smiley face 
+	   We begin by constructing a list inspired by examining existing well-established
+	sentiment word-banks (LIWC, ANEW, and GI). To this, we next incorporate numerous
+	lexical features common to sentiment expression in microblogs, including
+	 - a full list of Western-style emoticons, for example, :-) denotes a smiley face
 	   and generally indicates positive sentiment)
-	 - sentiment-related acronyms and initialisms (e.g., LOL and WTF are both examples of 
+	 - sentiment-related acronyms and initialisms (e.g., LOL and WTF are both examples of
 	   sentiment-laden initialisms)
-	 - commonly used slang with sentiment value (e.g., nah, meh and giggly). 
-	
-	This process provided us with over 9,000 lexical feature candidates. Next, we assessed 
-	the general applicability of each feature candidate to sentiment expressions. We 
-	used a wisdom-of-the-crowd13 (WotC) approach (Surowiecki, 2004) to acquire a valid 
-	point estimate for the sentiment valence (intensity) of each context-free candidate 
-	feature. We collected intensity ratings on each of our candidate lexical features 
-	from ten independent human raters (for a total of 90,000+ ratings). Features were 
-	rated on a scale from "[–4] Extremely Negative" to "[4] Extremely Positive", with 
+	 - commonly used slang with sentiment value (e.g., nah, meh and giggly).
+
+	This process provided us with over 9,000 lexical feature candidates. Next, we assessed
+	the general applicability of each feature candidate to sentiment expressions. We
+	used a wisdom-of-the-crowd13 (WotC) approach (Surowiecki, 2004) to acquire a valid
+	point estimate for the sentiment valence (intensity) of each context-free candidate
+	feature. We collected intensity ratings on each of our candidate lexical features
+	from ten independent human raters (for a total of 90,000+ ratings). Features were
+	rated on a scale from "[–4] Extremely Negative" to "[4] Extremely Positive", with
 	allowance for "[0] Neutral (or Neither, N/A)".  <br />
-	   We kept every lexical feature that had a non-zero mean rating, and whose standard 
-	deviation was less than 2.5 as determined by the aggregate of ten independent raters. 
-	This left us with just over 7,500 lexical features with validated valence scores that 
-	indicated both the sentiment polarity (positive/negative), and the sentiment intensity 
-	on a scale from –4 to +4. For example, the word "okay" has a positive valence of 0.9, 
-	"good" is 1.9, and "great" is 3.1, whereas "horrible" is –2.5, the frowning emoticon :( 
-	is –2.2, and "sucks" and it's slang derivative "sux" are both –1.5. 
+	   We kept every lexical feature that had a non-zero mean rating, and whose standard
+	deviation was less than 2.5 as determined by the aggregate of ten independent raters.
+	This left us with just over 7,500 lexical features with validated valence scores that
+	indicated both the sentiment polarity (positive/negative), and the sentiment intensity
+	on a scale from –4 to +4. For example, the word "okay" has a positive valence of 0.9,
+	"good" is 1.9, and "great" is 3.1, whereas "horrible" is –2.5, the frowning emoticon :(
+	is –2.2, and "sucks" and it's slang derivative "sux" are both –1.5.
 
 3. vaderSentiment.py <br />
-    The Python code for the rule-based sentiment analysis engine. Implements the 
-	grammatical and syntactical rules described in the paper, incorporating empirically 
-	derived quantifications for the impact of each rule on the perceived intensity of 
-	sentiment in sentence-level text. Importantly, these heuristics go beyond what would 
-	normally be captured in a typical bag-of-words model. They incorporate **word-order 
-	sensitive relationships** between terms. For example, degree modifiers (also called 
-	intensifiers, booster words, or degree adverbs) impact sentiment intensity by either 
+    The Python code for the rule-based sentiment analysis engine. Implements the
+	grammatical and syntactical rules described in the paper, incorporating empirically
+	derived quantifications for the impact of each rule on the perceived intensity of
+	sentiment in sentence-level text. Importantly, these heuristics go beyond what would
+	normally be captured in a typical bag-of-words model. They incorporate **word-order
+	sensitive relationships** between terms. For example, degree modifiers (also called
+	intensifiers, booster words, or degree adverbs) impact sentiment intensity by either
 	increasing or decreasing the intensity. Consider these examples: <br />
 	   (a) "The service here is extremely good"  <br />
 	   (b) "The service here is good" <br />
 	   (c) "The service here is marginally good" <br />
 	From Table 3 in the paper, we see that for 95% of the data, using a degree modifier
-    increases the positive sentiment intensity of example (a) by 0.227 to 0.36, with a 
-	mean difference of 0.293 on a rating scale from 1 to 4. Likewise, example (c) reduces 
+    increases the positive sentiment intensity of example (a) by 0.227 to 0.36, with a
+	mean difference of 0.293 on a rating scale from 1 to 4. Likewise, example (c) reduces
 	the perceived sentiment intensity by 0.293, on average.
 
 4. tweets_GroundTruth.txt <br />
@@ -141,7 +144,7 @@ The compressed .tar.gz package includes **PRIMARY RESOURCES** (items 1-3) as wel
 =======
 ##Python Code EXAMPLE:
 ```
-	from vaderSentiment import sentiment as vaderSentiment 
+	from vaderSentiment import sentiment as vaderSentiment
 	#note: depending on how you installed (e.g., using source code download versus pip install), you may need to import like this:
 	#from vaderSentiment.vaderSentiment import sentiment as vaderSentiment
 
@@ -169,7 +172,7 @@ The compressed .tar.gz package includes **PRIMARY RESOURCES** (items 1-3) as wel
 		print sentence,
 		vs = vaderSentiment(sentence)
 		print "\n\t" + str(vs)
-	
+
 # --- output for the above example code ---
 VADER is smart, handsome, and funny.
  	{'neg': 0.0, 'neu': 0.254, 'pos': 0.746, 'compound': 0.8316}
@@ -195,7 +198,7 @@ At least it isn't a horrible book.
  	{'neg': 0.0, 'neu': 0.637, 'pos': 0.363, 'compound': 0.431}
 :) and :D
  	{'neg': 0.0, 'neu': 0.124, 'pos': 0.876, 'compound': 0.7925}
- 
+
     {'neg': 0.0, 'neu': 0.0, 'pos': 0.0, 'compound': 0.0}
 Today sux
  	{'neg': 0.714, 'neu': 0.286, 'pos': 0.0, 'compound': -0.3612}
